@@ -1,0 +1,231 @@
+public class Snail {
+	private static int b;
+	private static int[][] test_odd;
+	private static int numofcircle;
+	
+	
+	
+	public static void getArray(int[][] pputin)
+	{
+		test_odd = pputin;
+	}
+	
+	public static void set(int[][] pputin)
+	{
+		b = test_odd.length;
+		
+		numofcircle = b/2;
+		if(b%2 ==0)
+		{
+			numofcircle = b/2;
+		}
+		else
+		{
+			numofcircle = b/2 +1;
+		}
+	}
+		
+	public static int[] odd_circle()
+	{
+		
+		if(b == 1)
+		{
+			int[] oout;
+			if(test_odd[0].length == 0)
+			{
+				int[] out = {};
+				oout = out;
+				
+			}
+			else
+			{
+				int[] out = {test_odd[0][0]};
+				oout = out;
+			}
+			
+			return oout;
+		}
+		else
+		{
+			int end_hang = b-1;
+			int end_lie = b-1;
+			int begin_hang = 0;
+			int begin_lie = 0;
+			
+			int[] get_odd = new int[b*b];
+			
+			int q = 0;
+			int no_circle = 1;
+			int io = b - (no_circle-1)*2;
+			int numof_ele_percir = io + (io-1)*2 + (io-2);
+			int k =0;
+			int i = 0;
+			for(;no_circle < numofcircle;)
+			{
+				
+				k = 0;
+				for(; k <numof_ele_percir;)
+				{
+					
+					//读取上方的行
+					for(int j = begin_lie ;j <= end_lie ; j++)
+					{
+						get_odd[i] = test_odd[begin_hang][j];
+						i++;
+					}
+					
+					//读取右边的列
+					for(int j = begin_hang+1 ;j <= end_hang ; j++)
+					{
+						get_odd[i] = test_odd[j][end_lie];
+						i++;
+					}
+					
+					//读取下方的行
+					for(int j = end_lie-1; j >= begin_lie ; j--)
+					{
+						get_odd[i] = test_odd[end_hang][j];
+						i++;
+					}
+					
+					for(int j = end_hang-1; j >= begin_hang+1 ; j--)
+					{
+						get_odd[i] = test_odd[j][begin_lie];
+						i++;
+					}
+					k = i;
+					q = i;
+					no_circle++;
+					io = b - (no_circle-1)*2;
+					numof_ele_percir = io + (io-1)*2 + (io-2);
+				}
+				end_hang--;
+				end_lie--;
+				begin_hang++;
+				begin_lie++;
+			}
+			get_odd[b*b -1] = test_odd[numofcircle-1][numofcircle-1];
+			return get_odd;
+		}
+		
+	}
+	
+	public static int[] even_circle()
+	{
+		int[] get_odd = new int[b*b];
+		
+		int end_hang = b-1;
+		int end_lie = b-1;
+		int begin_hang = 0;
+		int begin_lie = 0;
+		int q = 0;
+		int no_circle = 1;
+		int io = b - (no_circle-1)*2;
+		int numof_ele_percir = io + (io-1)*2 + (io-2);
+		int k =0;
+		int i = 0;
+		for(;no_circle <= numofcircle;)
+		{
+			k = 0;
+			for(; k <numof_ele_percir;)
+			{
+				
+				//读取上方的行
+				for(int j = begin_lie ;j <= end_lie ; j++)
+				{
+					get_odd[i] = test_odd[begin_hang][j];
+					i++;
+				}
+				
+				//读取右边的列
+				for(int j = begin_hang+1 ;j <= end_hang ; j++)
+				{
+					get_odd[i] = test_odd[j][end_lie];
+					i++;
+				}
+				
+				//读取下方的行
+				for(int j = end_lie-1; j >= begin_lie ; j--)
+				{
+					get_odd[i] = test_odd[end_hang][j];
+					i++;
+				}
+				
+				for(int j = end_hang-1; j >= begin_hang+1 ; j--)
+				{
+					get_odd[i] = test_odd[j][begin_lie];
+					i++;
+				}
+				k = i;
+				q = i;
+				no_circle++;
+				io = b - (no_circle-1)*2;
+				numof_ele_percir = io + (io-1)*2 + (io-2);
+			}
+			end_hang--;
+			end_lie--;
+			begin_hang++;
+			begin_lie++;
+		}
+		if(b == 0 )
+		{
+			int[] rreturn = new int[0];
+			return rreturn;
+		}
+		else
+		{
+			return get_odd;
+		}
+		
+	}
+	
+	public static int[] snail(int[][] array)
+	{	int[][] tool = array;
+		String ttest = "";
+		ttest.toCharArray();
+		if(array == null || array.equals(ttest) )
+		{	int[] out = {};
+			return out;
+		}
+		else
+		{
+			int[] rrresult = new int[b*b];
+			int[][] test = array;
+			getArray(test);
+			set(test_odd);
+			if(b%2 == 0)
+			{
+				rrresult = even_circle();
+			}
+			else
+			{
+				rrresult = odd_circle();
+			}
+			
+			
+			return rrresult;
+		}
+		
+		
+	}
+
+	public static void main(String[] args) {
+	
+		int[][] test = {{}};
+		getArray(test);
+		
+		
+		set(test_odd);
+		if(b%2 == 0)
+		{
+			int[] rresult = even_circle();
+		}
+		else
+		{
+			int[] rresult = odd_circle();
+		}
+		int[] arr = {};
+	}
+	
+
+}
