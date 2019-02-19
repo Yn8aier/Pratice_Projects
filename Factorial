@@ -1,0 +1,22 @@
+import java.math.BigInteger;
+
+public class Factorial {
+	public static String Factorial(int n) {
+		BigInteger target = new BigInteger("1");
+		BigInteger cal = new BigInteger("1");
+		BigInteger one = new BigInteger("1");
+		for(int i =1; i <= n; i++)
+		{
+			cal = cal.multiply(target);
+			target = target.add(one);
+		}
+		String Result = cal.toString();
+	    return Result;
+	  }
+	
+
+	public static void main(String[] args) {
+		System.out.println(Factorial(25));
+	}
+
+}
