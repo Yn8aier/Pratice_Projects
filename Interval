@@ -1,0 +1,188 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Interval {
+	public static int[][] arrayin;
+	public static int cover;
+	public static int length;
+	public static int left_appear_time;
+	public static int right_appear_time;
+	public static int[] Left_points;
+	public static int[] Right_points;
+	public static int[] all_points;
+	
+	public static void setarray(int[][] in)
+	{
+		
+		arrayin = in;
+		int q = 0;
+		int[] arraypoints = new int[arrayin.length * arrayin[0].length];
+		
+		for(int i = 0; i <arrayin.length; i++)
+		{
+			for(int j =0; j < arrayin[i].length; j++)
+			{
+				arraypoints[q] = arrayin[i][j];
+				q++;
+			}
+		}
+		
+		Arrays.sort(arraypoints);
+		Set<Integer> setOfPoints = new HashSet<Integer>();
+        for (int i = 0, len = arraypoints.length; i < len; i++)
+        	{
+            if (setOfPoints.add(arraypoints[i])) 
+            	{
+
+            	}
+        	}
+        int[] sortedpoints = new int[setOfPoints.size()];
+
+        
+        int index = 1;
+        for (int i = 1, len = arraypoints.length; i < len; i++)
+        	{
+            sortedpoints[0] = arraypoints[0];
+        	if (arraypoints[i] != arraypoints[i - 1]) 
+        	{
+            	sortedpoints[index] = arraypoints[i];
+            	index++;
+            }
+        	all_points = sortedpoints;
+        }
+        		
+		int[] left_points = new int[arrayin.length];
+		int[] right_points = new int[arrayin.length];
+		if(arrayin.length == 2)
+		{
+			for(int i =0; i <arrayin.length; i++)
+			{
+				left_points[i] = arrayin[i][0];
+			}
+			
+			for(int i =0; i <arrayin.length; i++)
+			{
+				right_points[i] = arrayin[i][1];
+			}
+		}
+		else
+		{
+			for(int i =0; i <arrayin.length; i++)
+			{
+				left_points[i] = arrayin[i][0];
+			}
+			
+			for(int i =0; i <arrayin.length; i++)
+			{
+				right_points[i] = arrayin[i][1];
+			}
+		}
+		Left_points = left_points;
+		Right_points = right_points;
+	}
+	
+	public static int findleft(int in)
+	{
+		int Return = 0;
+		for(int i = 0; i < Left_points.length; i++)
+		{
+			if(in == Left_points[i])
+			{
+				Return++;
+			}
+		}
+		return Return;
+	}
+	
+	public static int findright(int in)
+	{
+		int Return = 0;
+		for(int i = 0; i < Right_points.length; i++)
+		{
+			if(in == Right_points[i])
+			{
+				Return++;
+			}
+		}
+		return Return;
+	}
+	
+	
+	public static int sumIntervals(int[][] in)
+	{
+		if(in[0].length == 0)
+		{
+			length = 0;
+			return length;
+		}
+		
+		setarray(in);
+		int cover = 0;
+		int point = all_points[0];
+		for(int i = 0;i < all_points.length;i++)
+		{
+			cover = cover + findleft(all_points[i]) - findright(all_points[i]);
+			if(point == all_points[all_points.length-1])
+			{
+				break;
+			}
+			
+			if(cover >0)
+			{
+				length = length + (all_points[i+1] - all_points[i]);
+			}
+			else
+			{
+				continue;
+			}
+			point = all_points[i+1];
+		}
+		return length;
+	}
+
+	public static void main(String[] args) {
+		int[][] neww = {{-4390, 3409}, {-9969, -2900}, {-2490, 6028},{-816,5148},{-7830,-6018},{1238,5333},{-3428,7640},{2091,9323},{-3468,5077},{-9991,-3505},{-901,1781},{-3526,1862},{7138,7256},{-1208,8682},{-6740,3996},{-7586,-3921},{-7942,-5604},{-4917,-3837},{-7492,-5522},{590,7195},{2010,9735},{-5359,1185},{2980,8784},{-8660,-2173}};
+		int[] newe = new int[2 * neww[0].length];
+		int q = 0;
+
+
+		for(int i = 0; i <neww[0].length; i++)
+		{
+			for(int j =0; j < neww[i].length; j++)
+			{
+				newe[q] = neww[i][j];
+				q++;
+			}
+		}
+	
+
+		System.out.println("Bye Bye World");
+
+	}
+
+}
+//以下是废稿
+//将set转换为int数组
+//Object[] allpointss = new Object[setOfPoints.size()];
+//allpointss = setOfPoints.toArray();		
+//for(int o = 0; o <setOfPoints.size(); o++)
+//{
+//	allpointss[o] = Arrays.asList(setOfPoints[o]);
+//}
+//
+
+//去除重复元素		
+//String allpoints = "" ;
+//for(int i =0; i < arraypoints.length; i++)
+//{
+//	allpoints = allpoints + arraypoints[i];
+//}
+//
+
+//allpoints = setOfPoints.toString();
+//String test = "" + setOfPoints;
+//sortedpoints[0] = Integer.parseInt(String.valueOf(test));
+
+//sortedpoints[indexx] = arraypoints[i];
+//indexx++;
