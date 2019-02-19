@@ -1,0 +1,60 @@
+
+
+public class Diamond 
+{
+	private static StringBuffer out = new StringBuffer();
+	
+	public static void build(int in,int ith)
+	{
+		StringBuffer part = new StringBuffer();
+		for(int i = 1;i <= ith; i++)
+		{
+			part.append(" ");
+		}
+		for(int i = 1; i<= in; i++)
+		{
+			part.append("*");
+			if(i == in)
+			{
+				part.append("\n");
+				break;
+			}
+		}
+		out.append(part);
+	}
+	
+	public static String print(int n) 
+	{
+		if(n%2==0 || n <0)
+		{
+			return null;
+		}
+		else
+		{
+			int ith = (n+1)/2 ;
+			for(int i = ith; i > 0; i--)
+			{
+				build((n-(ith-1)*2),ith-1);
+				ith--;
+			}
+			ith = (n+1)/2;
+			
+			for(int i = 1; i <= (n+1)/2 -1; i++)
+			{
+				build((n-i*2),i);
+				ith++;
+			}
+			
+			return out.toString();   
+		}
+	}
+	
+
+	public static void main(String[] args) 
+	{
+//		build(3,1);
+//		build(5,0);
+	System.out.println(print(121));
+	}
+
+}
