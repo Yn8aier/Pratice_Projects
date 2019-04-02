@@ -1,0 +1,68 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class A3Q1 {
+
+    public static int GCD(int a, int b) {
+        while (b != 0) {
+            int tem = a % b;
+            a = b;
+            b = tem;
+        }
+        return a;
+    }
+    public static int GCDS(int[] numbers){
+        int count = 0;
+        for (int i = 2; i < numbers.length; i++) {
+            count = GCD(GCD(numbers[i - 2], numbers[i - 1]), numbers[i]);
+            if(count == 1){
+                break;
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+//        int[] test = {2,2,2};
+//        GCDS(test);
+        Scanner in = new Scanner(System.in);
+        int index = 0;
+        int NumofMatrix = Integer.parseInt(args[index]);
+        index++;
+        ArrayList output = new ArrayList();
+        for(int NumberofMatrix = 1; NumberofMatrix <= NumofMatrix; NumberofMatrix++){
+            //Get the matrix
+            int rows = Integer.parseInt(args[index]);
+            index++;
+            int columns = Integer.parseInt(args[index]);
+            index++;
+            int[][] matrix = new int[rows][columns];
+            for(int i = 0; i < rows; i++){
+                for(int j = 0; j < columns; j++){
+                    matrix[i][j] = Integer.parseInt(args[index]);
+                    index++;
+                }
+            }
+            for(int j = 0; j < columns; j++){
+                int[] OneColumn = new int[rows];
+                int indexx = 0;
+                for(int i = 0; i <rows; i++){
+                    OneColumn[indexx] = matrix[i][j];
+                    indexx++;
+                }
+                output.add(GCDS(OneColumn));
+                if(j == columns-1){
+                    output.add(-1);
+                    break;
+                }
+            }
+        }
+        for(int target = 0; target < output.size(); target++){
+            if(output.toArray()[target].equals(-1)){
+                System.out.print("\n");
+                continue;
+            }
+            System.out.print(output.toArray()[target]);
+        }
+    }
+}
